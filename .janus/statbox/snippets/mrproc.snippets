@@ -1,0 +1,20 @@
+snippet param
+	se.make_parameter_extractor(
+		'${1:name}', '${2:field}',
+		'parsed_parameters'
+	),
+
+snippet red
+	def reduce_${1:name}(${2:key}, records):
+		${4}
+		for record in records:
+			${3:pass}
+
+snippet dicts
+	dicts = UrlToGroups.yaml; IgnoredUA.yaml; Geobasev6.xml
+
+snippet map
+	map "./${1:main.py} ${2:CombinedRawMap}${3:Access}" -src /${4:access}-log/$date -dst $tmp/${5:map} -dicts $dicts -subkey
+
+snippet red
+	reduce "./${1:main.py} ${2:reduce_}${3:final}" -src $tmp/${4:map} -dst $tmp/${5:reduce}2 -subkey

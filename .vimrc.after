@@ -38,8 +38,10 @@ set list listchars=tab:→\ ,trail:·
 set nu
 
 " statadhoc
-au BufRead,BufNewFile job* set filetype=mrproc
-au BufRead,BufNewFile *.py set expandtab shiftwidth=4
+au BufRead,BufNewFile job*  set filetype=mrproc
+au BufRead,BufNewFile *.lsc set filetype=ls
+au BufRead,BufNewFile *.py  set expandtab shiftwidth=4
+au BufRead,BufNewFile *.hs  set expandtab shiftwidth=4
 set softtabstop=4
 
 " auto file change
@@ -55,4 +57,16 @@ au BufWritePost * call MakeScriptExecutable()
 " colors
 set t_Co=256
 set term=screen-256color
-color Mustang
+"color Mustang
+"color ataraxer
+color seoul256
+
+let g:indentLine_char = '|'
+
+inoremap <F9> <C-O>za
+nnoremap <F9> za
+onoremap <F9> <C-C>za
+vnoremap <F9> zf
+
+"highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+"match OverLength /\%81v.\+/
