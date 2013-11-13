@@ -1,0 +1,59 @@
+set nocompatible
+set backspace=indent,eol,start	" more powerful backspacing
+
+set autoindent		" always set autoindenting on
+" set linebreak		" Don't wrap words by default
+set textwidth=0		" Don't wrap lines by default 
+set backupcopy=yes	" Keep a backup file
+set viminfo='20,\"50	" read/write file .viminfo, store<=50 lines of registers
+set history=50		" keep 50 lines of command line history
+set ruler			" show the cursor position all the time
+syntax on			" enable syntax highlighting
+
+" Suffixes that get lower priority when doing tab completion for filenames.
+set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
+
+if has('autocmd')
+ " Enabled file type detection
+ " Use the default filetype settings. If you also want to load indent files
+ " to automatically do language-dependent indenting add 'indent' as well.
+ filetype plugin indent on
+endif
+
+set showcmd		" Show (partial) command in status line.
+set ignorecase	" Do case insensitive matching
+set incsearch	" Incremental search
+
+set noexpandtab
+set shiftwidth=4
+set tabstop=4
+set hlsearch	" Highlight search
+set nowrapscan	" Don't wrap around EOF or BOF while searching
+set suffixesadd=.pl,.pm,.yml,.yaml " for `gf' (open file under cursor)
+" set t_ti= t_te= " do not clear screen on exit
+
+" set encoding=koi8-r
+set fileencodings=utf-8,koi8-r
+set list listchars=tab:→\ ,trail:·
+set nu
+
+" statadhoc
+au BufRead,BufNewFile job* set filetype=mrproc
+au BufRead,BufNewFile *.py set expandtab shiftwidth=4
+au BufRead,BufNewFile *.hs set expandtab shiftwidth=4
+set softtabstop=4
+
+" auto file change
+function MakeScriptExecutable()
+	if getline(1) =~ "^#!"
+		if getline(1) =~ "bin/"
+			silent !chmod u+x <afile>
+		endif
+	endif
+endfunction
+au BufWritePost * call MakeScriptExecutable()
+
+" colors
+set t_Co=256
+set term=screen-256color
+color Mustang
