@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+tr -s '[[:punct:][:space:]]' '\n'
