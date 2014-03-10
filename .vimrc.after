@@ -32,17 +32,14 @@ set nowrapscan	" Don't wrap around EOF or BOF while searching
 set suffixesadd=.pl,.pm,.yml,.yaml " for `gf' (open file under cursor)
 " set t_ti= t_te= " do not clear screen on exit
 
-" set encoding=koi8-r
 set fileencodings=utf-8,koi8-r
 set list listchars=tab:→\ ,trail:·
 set nu
 
-" statadhoc
-au BufRead,BufNewFile job*  set filetype=mrproc
-au BufRead,BufNewFile *.lsc set filetype=ls
-au BufRead,BufNewFile *.py  set expandtab shiftwidth=4
-au BufRead,BufNewFile *.hs  set expandtab shiftwidth=4
-set softtabstop=4
+set expandtab shiftwidth=2 softtabstop=2
+au BufRead,BufNewFile *.py set expandtab shiftwidth=4
+au BufRead,BufNewFile *.dart set syntax=dart
+
 
 " auto file change
 function MakeScriptExecutable()
@@ -57,16 +54,14 @@ au BufWritePost * call MakeScriptExecutable()
 " colors
 set t_Co=256
 set term=screen-256color
-"color Mustang
-"color ataraxer
-color seoul256
 
-let g:indentLine_char = '|'
+color railscasts
 
-inoremap <F9> <C-O>za
-nnoremap <F9> za
-onoremap <F9> <C-C>za
-vnoremap <F9> zf
-
-"highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-"match OverLength /\%81v.\+/
+" Show syntax highlighting groups for word under cursor
+nmap <C-S-P> :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+	if !exists("*synstack")
+		return
+	endif
+	echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc

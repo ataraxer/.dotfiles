@@ -1,3 +1,3 @@
 " powerline setup
-set runtimepath+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
+set runtimepath+=$HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/vim/
 set laststatus=2
