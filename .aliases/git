@@ -1,0 +1,8 @@
+# Git aliases
+alias gitl='git log ./'
+alias gita='git add'
+alias gital='git add *'
+alias gitc='git commit'
+alias gits='git status ./'
+alias gitd='git diff'
+alias gitp='git pull && git push'
