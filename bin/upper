@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+if [ -n "$1 ]
+then
+	tr '[:lower:]' '[:upper:]' < $1
+else
+	tr '[:lower:]' '[:upper:]'
+fi

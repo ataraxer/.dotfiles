@@ -1,3 +1,8 @@
 #!/usr/bin/env sh
 
-tr -s '[[:punct:][:space:]]' '\n'
+if [ -n "$1" ]
+then
+	tr -s '[[:punct:][:space:]]' '\n' < $1
+else
+	tr -s '[[:punct:][:space:]]' '\n'
+fi
