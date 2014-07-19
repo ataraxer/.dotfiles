@@ -1,5 +1,7 @@
 # Git aliases
-alias gitl='git log ./'
+format="%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset"
+alias gitl="git log --pretty=format:'$format' --abbrev-commit --no-merges"
+alias gl="git --no-pager log --pretty=format:'$format' --abbrev-commit --no-merges --reverse -20"
 alias gita='git add'
 alias gital='git add *'
 alias gitc='git commit'
