@@ -7,3 +7,25 @@
 	ui = true
 [push]
 	default = simple
+[alias]
+	s = status
+	d = diff .
+	c = commit
+	ad = commit --amend
+	ch = checkout
+	b = checkout -b
+	m = checkout master
+	pre = checkout -
+	a = add
+	au = add -U
+	aa = add --all
+	ap = add -p
+	pl = pull upstream master
+	pu = push -u origin
+	rem = rebase master
+	ff = merge --ff-only
+	br = branch
+	db = branch -d
+	l = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --no-merges
+	lst = log -p -1
+	r = reflog
