@@ -1,6 +1,5 @@
 [user]
 	name = Anton Karamanov
-	email = ataraxer@gmail.com
 [ui]
 	color = 1
 [color]
@@ -10,9 +9,11 @@
 [alias]
 	s = status
 	d = diff .
+	dc = diff --cached .
 	c = commit
 	ad = commit --amend
 	ch = checkout
+	pk = cherry-pick
 	b = checkout -b
 	m = checkout master
 	pre = checkout -
@@ -21,11 +22,12 @@
 	aa = add --all
 	ap = add -p
 	pl = pull upstream master
-	pu = push -u origin
-	rem = rebase master
+	pu = !git push -u origin $(git rev-parse --abbrev-ref HEAD)
+	reb = rebase master
 	ff = merge --ff-only
 	br = branch
-	db = branch -d
+	bd = branch -d
+	bm = branch --merged
 	l = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --no-merges
 	lst = log -p -1
 	r = reflog
