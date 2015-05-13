@@ -1,11 +1,6 @@
 # Git aliases
-format="%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset"
-alias gitl="git log --pretty=format:'$format' --abbrev-commit --no-merges"
-alias gl="git --no-pager log --pretty=format:'$format' --abbrev-commit --no-merges --reverse -20"
-alias gitr="git reflog"
-alias gita='git add'
-alias gital='git add *'
-alias gitc='git commit'
-alias gits='git status ./'
-alias gitd='git diff'
-alias gitp='git pull && git push'
+alias gitl="git l"
+alias gl="git l --no-pager --reverse -20"
+alias gitc='git c'
+alias gits='git s'
+alias gitd='git d'

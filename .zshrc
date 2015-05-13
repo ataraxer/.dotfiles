@@ -31,9 +31,10 @@ ZSH_THEME="ys"
 # plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
-source $HOME/.zsh.profile
+source $HOME/.profile
 
 export LANG=en_US.UTF-8
 
 # Customize to your needs...
 export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
+export PATH=$PATH:$HOME/personal/dotfiles/bin

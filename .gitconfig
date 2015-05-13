@@ -7,7 +7,7 @@
 [push]
 	default = simple
 [alias]
-	s = status
+	s = status .
 	d = diff .
 	dc = diff --cached .
 	c = commit
@@ -28,6 +28,6 @@
 	br = branch
 	bd = branch -d
 	bm = branch --merged
-	l = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --no-merges
+	l = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --no-merges --perl-regexp --author='^((?!Stattester).*)$'
 	lst = log -p -1
 	r = reflog
