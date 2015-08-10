@@ -1,0 +1,37 @@
+# don't put duplicate lines or lines starting with space in the history.
+HISTCONTROL=ignoreboth:erasedups
+
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+alias ll='ls -ohG'
+alias la='ls -oAhG'
+alias l='ls -CFG'
+
+alias ta='tmux attach'
+
+alias gulp='gulp --require coffee-script'
+
+if [ -d ~/.aliases ]; then
+  for f in ~/.aliases/*
+  do
+    source $f
+  done
+fi
+
+alias tree="find . -print | grep -v '.git' | sort | sed 's;[^/]*/;|-- ;g;s;-- |; |;g'"
+
+export HOMEBREW_NO_EMOJI=True
+export TERM="xterm-256color"
+#export LSCOLORS="Dxfxcxdxcxegedabagacad"
+
+export PGHOST=localhost
+
+export JAVA_HOME=`/usr/libexec/java_home -v 1.7`
+export JAVA=$JAVA_HOME:'/bin/java'
+
+alias swift="DEVELOPER_DIR=/Applications/XCode6-Beta.app/Contents/Developer/ xcrun swift"
+alias lisp='clisp --silent'
+alias vim='/usr/local/Cellar/vim/7.4.052/bin/vim'
+alias l='cd "$(git rev-parse --show-toplevel)"'
