@@ -1,3 +1,3 @@
-alias ll='ls -ohGh --group-directories-first'
-alias la='ls -ohGAh --group-directories-first'
-alias l='ls -CFGh --group-directories-first'
+alias ll='ls -ohGh'
+alias la='ls -ohGAh'
+alias l='ls -CFGh'
