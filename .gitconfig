@@ -8,9 +8,9 @@
 [push]
 	default = simple
 [alias]
-	s = status
-	d = diff .
-	dc = diff --cached .
+	s = status .
+	d = diff
+	dc = diff --cached
 	c = commit
 	ad = commit --amend
 	ch = checkout
@@ -25,10 +25,15 @@
 	pl = pull upstream master
 	pu = !git push -u origin $(git rev-parse --abbrev-ref HEAD)
 	reb = rebase master
+	ok = rebase --continue
 	ff = merge --ff-only
 	br = branch
 	bd = branch -d
 	bm = branch --merged
-	l = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --no-merges
+	bmd = !git bd $(git bm | grep -v master)
+	l = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --no-merges --perl-regexp --author='^((?!Stattester).*)$'
 	lst = log -p -1
 	r = reflog
+	wip = commit -m WIP
+	save = stash
+	load = stash pop
