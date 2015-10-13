@@ -18,6 +18,10 @@
 	b = checkout -b
 	m = checkout master
 	pre = checkout -
+	h = !sh -c 'git reflog | grep -Eo \"moving from .* to .*\" | \
+		sed \"s/moving from /- /g\" | \
+		sed \"s/ to / => /g\" | \
+		head -10'
 	a = add
 	au = add -U
 	aa = add --all
@@ -25,15 +29,30 @@
 	pl = pull upstream master
 	pu = !git push -u origin $(git rev-parse --abbrev-ref HEAD)
 	reb = rebase master
-	ok = rebase --continue
+	ok = !sh -c '\
+		(git rebase --continue 2> /dev/null && echo "rebase ok") || \
+		(git cherry-pick --continue 2> /dev/null && echo "cherry-pick ok") || \
+		(echo "no rebase or cherry-pick in progress")'
+	no = !sh -c '\
+		(git rebase --abort 2> /dev/null && echo "rebase aborted") || \
+		(git cherry-pick --abort 2> /dev/null && echo "cherry-pick aborted") || \
+		(echo "no rebase or cherry-pick in progress")'
+	yes = !git ok
 	ff = merge --ff-only
 	br = branch
 	bd = branch -d
 	bm = branch --merged
 	bmd = !git bd $(git bm | grep -v master)
 	l = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --no-merges --perl-regexp --author='^((?!Stattester).*)$'
+	la = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	lst = log -p -1
 	r = reflog
+	fix = "!sh -c \"git rebase -i HEAD~$1\""
+	res = reset HEAD^
+	;wip = !sh -c 'if [`git log --format=%B -n 1 | xargs echo -n` == "WIP"]\; then echo amend\; else echo commit\; fi'
 	wip = commit -m WIP
+	todo = !git l --all --grep=WIP
 	save = stash
+	sall = !git add -A && git stash
 	load = stash pop
+	undo = reset HEAD^
