@@ -12,38 +12,52 @@
 	d = diff
 	dc = diff --cached
 	c = commit
+	empty = commit --allow-empty -m 'EMPTY COMMIT'
 	ad = commit --amend
 	ch = checkout
+	chp = checkout -p
 	pk = cherry-pick
 	b = checkout -b
 	m = checkout master
 	pre = checkout -
-	h = !sh -c 'git reflog | grep -Eo \"moving from .* to .*\" | \
-		sed \"s/moving from /- /g\" | \
-		sed \"s/ to / => /g\" | \
-		head -10'
+	h = "!sh -c \"git reflog --date iso | \
+		cut -d ' ' -f 2,3,6- | \
+		sed 's/HEAD@{//g' | \
+		grep -E 'moving from .* to .*' | \
+		sed 's/moving from .* to /- /g' | \
+		sed 's/ to / => /g' | \
+		grep -v 'master' | \
+		sort -ru -t ' ' -k 4 | \
+		sort -r -t ' ' -k 1,2 | \
+		head -${1:-16} \""
 	a = add
 	au = add -U
 	aa = add --all
 	ap = add -p
 	pl = pull upstream master
 	pu = !git push -u origin $(git rev-parse --abbrev-ref HEAD)
+	puf = !git push -uf origin $(git rev-parse --abbrev-ref HEAD)
+	put = "!sh -c \"git push -uf origin $1:$(git rev-parse --abbrev-ref HEAD)\""
 	reb = rebase master
 	ok = !sh -c '\
 		(git rebase --continue 2> /dev/null && echo "rebase ok") || \
 		(git cherry-pick --continue 2> /dev/null && echo "cherry-pick ok") || \
-		(echo "no rebase or cherry-pick in progress")'
+		(git merge --continue 2> /dev/null && echo "merge ok") || \
+		(echo "no rebase, cherry-pick or merge is in progress")'
 	no = !sh -c '\
 		(git rebase --abort 2> /dev/null && echo "rebase aborted") || \
 		(git cherry-pick --abort 2> /dev/null && echo "cherry-pick aborted") || \
-		(echo "no rebase or cherry-pick in progress")'
+		(git merge --abort 2> /dev/null && echo "merge aborted") || \
+		(echo "no rebase, cherry-pick or merge is in progress")'
 	yes = !git ok
 	ff = merge --ff-only
 	br = branch
 	bd = branch -d
 	bm = branch --merged
+	bmv = branch --move
 	bmd = !git bd $(git bm | grep -v master)
 	l = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --no-merges --perl-regexp --author='^((?!Stattester).*)$'
+	ld = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit --no-merges --perl-regexp --author='^((?!Stattester).*)$'
 	la = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	lst = log -p -1
 	r = reflog
@@ -51,8 +65,26 @@
 	res = reset HEAD^
 	;wip = !sh -c 'if [`git log --format=%B -n 1 | xargs echo -n` == "WIP"]\; then echo amend\; else echo commit\; fi'
 	wip = commit -m WIP
-	todo = !git l --all --grep=WIP
+	todo = "!sh -c \"git l --all --grep=^WIP | \
+		grep -v 'origin/' | \
+		grep --color=never ')... WIP'\""
+	find = "!sh -c \"git l --all --grep=$1\""
 	save = stash
 	sall = !git add -A && git stash
+	dad = !curl https://icanhazdadjoke.com && echo && git add
 	load = stash pop
 	undo = reset HEAD^
+	lb = "!sh -c \" \
+		git ch logbroker-$1 || \
+		git b logbroker-$1 \""
+	pq = "!sh -c \" \
+		git ch pq-$1 2> /dev/null || \
+		git b pq-$1 2> /dev/null \""
+	lbops = "!sh -c \" \
+		git ch lbops-$1 2> /dev/null || \
+		git b lbops-$1 2> /dev/null \""
+	fuck = reset HEAD@{1}
+	yolo = !sh -c 'git ap && git ad --no-edit && git pu';
+	new = "!sh -c \"mkdir $1 && cd $1 && git init\""
+[core]
+	editor = /usr/local/bin/vim
