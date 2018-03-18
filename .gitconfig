@@ -39,6 +39,7 @@
 	puf = !git push -uf origin $(git rev-parse --abbrev-ref HEAD)
 	put = "!sh -c \"git push -uf origin $1:$(git rev-parse --abbrev-ref HEAD)\""
 	reb = rebase master
+	empty = commit --allow-empty -m '== EMPTY =='
 	ok = !sh -c '\
 		(git rebase --continue 2> /dev/null && echo "rebase ok") || \
 		(git cherry-pick --continue 2> /dev/null && echo "cherry-pick ok") || \
@@ -69,6 +70,7 @@
 		grep -v 'origin/' | \
 		grep --color=never ')... WIP'\""
 	find = "!sh -c \"git l --all --grep=$1\""
+	locate = branch --contains
 	save = stash
 	sall = !git add -A && git stash
 	dad = !curl https://icanhazdadjoke.com && echo && git add
