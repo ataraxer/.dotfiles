@@ -1,17 +1,15 @@
 # don't put duplicate lines or lines starting with space in the history.
 HISTCONTROL=ignoreboth:erasedups
 
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
 alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
 
 alias ll='ls -ohG'
 alias la='ls -oAhG'
-alias l='ls -CFG'
 
 alias ta='tmux attach'
-
-alias gulp='gulp --require coffee-script'
 
 if [ -d ~/.aliases ]; then
   for f in ~/.aliases/*
@@ -28,10 +26,75 @@ export TERM="xterm-256color"
 
 export PGHOST=localhost
 
-export JAVA_HOME=`/usr/libexec/java_home -v 1.7`
+export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 export JAVA=$JAVA_HOME:'/bin/java'
 
-alias swift="DEVELOPER_DIR=/Applications/XCode6-Beta.app/Contents/Developer/ xcrun swift"
-alias lisp='clisp --silent'
-alias vim='/usr/local/Cellar/vim/7.4.052/bin/vim'
 alias l='cd "$(git rev-parse --show-toplevel)"'
+alias todo='ag -w TODO'
+alias fixme='ag -w FIXME'
+
+export PATH=$PATH:~/Library/Python/2.7/bin:~/repos/dotfiles/bin:~/arcadia
+
+alias toh='ssh -4 stbx-dev01h.stat.yandex.net'
+
+lb() {
+  if [ -z "$3" ]; then
+    ssh "lb-${1:-myt}-$(printf "%03d" ${2:-1}).stat.yandex.net"
+  else
+    ssh "lb-${1:-myt}-$(printf "%03d" ${2:-1}).stat.yandex.net" "${@:3}"
+  fi
+}
+
+pq() {
+  ssh "pq-$1-$(printf "%03d" ${2:-1}).search.yandex.net"
+}
+
+lbkt() {
+  if [ -z "$3" ]; then
+    ssh "lbkt-${1:-man}-$(printf "%03d" ${2:-1}).search.yandex.net"
+  else
+    ssh "lbkt-${1:-man}-$(printf "%03d" ${2:-1}).search.yandex.net" "${@:3}"
+  fi
+}
+
+lbkp() {
+  if [ -z "$3" ]; then
+    ssh "lbkp-${1:-man}-$(printf "%03d" ${2:-1}).search.yandex.net"
+  else
+    ssh "lbkp-${1:-man}-$(printf "%03d" ${2:-1}).search.yandex.net" "${@:3}"
+  fi
+}
+
+lbk() {
+  if [ -z "$3" ]; then
+    ssh "lbk-${1:-myt}-$(printf "%03d" ${2:-1}).search.yandex.net"
+  else
+    ssh "lbk-${1:-myt}-$(printf "%03d" ${2:-1}).search.yandex.net" "${@:3}"
+  fi
+}
+
+ydb() {
+  if [ -z "$3" ]; then
+    ssh "meta-ydb-${1:-sas}-$(printf "%03d" ${2:-1}).search.yandex.net"
+  else
+    ssh "meta-ydb-${1:-sas}-$(printf "%03d" ${2:-1}).search.yandex.net" "${@:3}"
+  fi
+}
+
+tunnel() {
+  ssh -f -N -L $2:127.0.0.1:${3:-$2} $1
+}
+
+watch() {
+  while sleep 1; do $@; echo; done
+}
+
+executer() {
+  ssh stbx-dev01h.stat.yandex.net -t "rm ~/.ssh/known_hosts; executer $1"
+}
+
+source ~/.virtualenv/bin/activate
+eval "$(docker-machine env 2>/dev/null)"
+
+export SBT_OPTS="-Xmx2G -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled"
+

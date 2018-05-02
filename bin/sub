@@ -1,3 +1,4 @@
 #!/usr/bin/env sh
 
 find . -type f -exec sed -e "s/$1/$2/g" -i '' '{}' +
+

@@ -31,9 +31,16 @@ ZSH_THEME="ys"
 # plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
-source $HOME/.zsh.profile
+source $HOME/.profile
 
 export LANG=en_US.UTF-8
 
 # Customize to your needs...
-export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
+export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:$HOME/Downloads/protoc-3/bin
+
+PATH="/Users/ataraxer/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/Users/ataraxer/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/Users/ataraxer/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/Users/ataraxer/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/Users/ataraxer/perl5"; export PERL_MM_OPT;
+export PATH="/usr/local/opt/protobuf@2.6/bin:$PATH"
